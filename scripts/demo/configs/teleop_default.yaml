@@ -1,0 +1,35 @@
+# Video Teleoperation Pipeline 설정
+# 출처: g1_29dof_gear_wbc.yaml, observation_config.yaml
+
+camera:
+  camera_type: webcam          # realsense | webcam | video:/path/to/file.mp4
+  camera_resolution: [640, 480]
+  camera_fps: 30
+  camera_device: 0
+
+genmo:
+  ckpt_path: inputs/pretrained/gem_smpl.ckpt
+  inference_interval: 30       # 매 30프레임 (=1초)마다 추론
+  window_size: 120
+  static_cam: true
+  postprocess: true
+
+retarget:
+  g1_urdf_path: null           # null이면 내장 기본값 사용
+  retarget_mode: sonic_v3      # sonic_v3 | full
+  joint_limit_margin: 0.95
+
+zmq:
+  zmq_enabled: true
+  zmq_host: localhost
+  zmq_port: 5556
+  zmq_topic: pose
+  zmq_socket_mode: bind        # bind (sim) | connect (real)
+
+visualize:
+  vis_enabled: true
+  vis_record: false
+  vis_output_dir: outputs/teleop
+
+save:
+  save_smpl: false
